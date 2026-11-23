@@ -1,0 +1,18 @@
+{
+  "name": "slug",
+  "kind": "library",
+  "version": "1.0.0",
+  "trust": "official",
+  "source": "https://github.com/mindmakr/tj-plugins",
+  "entry": "packages/slug/plugin.tj",
+  "commit": "049ffe804ba988691a1900bc31dc645cc8929431",
+  "sha256": "74e102e67237ab8408498bf309e31b1e71b0befdd528c6f5f1f4b78a2dec4eb6",
+  "license": "MIT",
+  "publisher": "mindmakr",
+  "permissions": {
+    "network": [],
+    "plugins": [],
+    "pii": [],
+    "device": []
+  }
+}

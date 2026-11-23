@@ -1,12 +1,12 @@
 {
   "name": "money",
   "kind": "library",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "trust": "official",
   "source": "https://github.com/mindmakr/tj-plugins",
   "entry": "packages/money/plugin.tj",
-  "commit": "3424cd08e9ef4af2dc8f9e0735f247c85915968f",
-  "sha256": "d1ed411971d5817a34476d34ad579b37176498a41a45848a7586ab506e2667de",
+  "commit": "049ffe804ba988691a1900bc31dc645cc8929431",
+  "sha256": "5d5e5a37c8670ad0e7c80b4addff4f7b01ddf4f184b4e39cea0dd5b3a2556867",
   "license": "MIT",
   "publisher": "mindmakr",
   "permissions": {

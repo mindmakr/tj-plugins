@@ -1,0 +1,18 @@
+{
+  "name": "validate",
+  "kind": "library",
+  "version": "1.0.0",
+  "trust": "official",
+  "source": "https://github.com/mindmakr/tj-plugins",
+  "entry": "packages/validate/plugin.tj",
+  "commit": "049ffe804ba988691a1900bc31dc645cc8929431",
+  "sha256": "3427cc0ff6483a8c1cd4eb25cd01534b72e92693a0bfe0429afe737b82499218",
+  "license": "MIT",
+  "publisher": "mindmakr",
+  "permissions": {
+    "network": [],
+    "plugins": [],
+    "pii": [],
+    "device": []
+  }
+}

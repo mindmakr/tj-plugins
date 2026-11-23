@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "packages": [
+    {
+      "name": "csv",
+      "kind": "library",
+      "version": "1.0.0",
+      "trust": "official",
+      "license": "MIT",
+      "publisher": "mindmakr",
+      "summary": "RFC 4180 CSV parser and serializer (parseCsv, toCsv)",
+      "permissions": {
+        "network": [],
+        "plugins": [],
+        "pii": [],
+        "device": []
+      }
+    },
+    {
+      "name": "gdpr-eu",
+      "kind": "compliance-pack",
+      "version": "1.0.0",
+      "trust": "official",
+      "license": "MIT",
+      "publisher": "mindmakr",
+      "summary": "Sample EU GDPR compliance pack for tj check --compliance",
+      "permissions": {
+        "network": [],
+        "plugins": [],
+        "pii": [],
+        "device": []
+      }
+    },
+    {
+      "name": "money",
+      "kind": "library",
+      "version": "1.0.1",
+      "trust": "official",
+      "license": "MIT",
+      "publisher": "mindmakr",
+      "summary": "Integer minor-unit currency arithmetic (toMinor, fromMinor, splitMinor, formatMinor)",
+      "permissions": {
+        "network": [],
+        "plugins": [],
+        "pii": [],
+        "device": []
+      }
+    },
+    {
+      "name": "pdpl-sa",
+      "kind": "compliance-pack",
+      "version": "1.0.0",
+      "trust": "official",
+      "license": "MIT",
+      "publisher": "mindmakr",
+      "summary": "Sample Saudi Arabia PDPL compliance pack for tj check --compliance",
+      "permissions": {
+        "network": [],
+        "plugins": [],
+        "pii": [],
+        "device": []
+      }
+    },
+    {
+      "name": "slug",
+      "kind": "library",
+      "version": "1.0.0",
+      "trust": "official",
+      "license": "MIT",
+      "publisher": "mindmakr",
+      "summary": "Clean URL-safe ASCII slug helpers (slugify, slugifyMax)",
+      "permissions": {
+        "network": [],
+        "plugins": [],
+        "pii": [],
+        "device": []
+      }
+    },
+    {
+      "name": "validate",
+      "kind": "library",
+      "version": "1.0.0",
+      "trust": "official",
+      "license": "MIT",
+      "publisher": "mindmakr",
+      "summary": "Deterministic validators (isEmail, isPhone, isUuid, isHttpsUrl, isIban)",
+      "permissions": {
+        "network": [],
+        "plugins": [],
+        "pii": [],
+        "device": []
+      }
+    }
+  ]
+}

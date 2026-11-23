@@ -1,0 +1,18 @@
+{
+  "name": "pdpl-sa",
+  "kind": "compliance-pack",
+  "version": "1.0.0",
+  "trust": "official",
+  "source": "https://github.com/mindmakr/tj-plugins",
+  "entry": "packages/pdpl-sa/pack.json",
+  "commit": "049ffe804ba988691a1900bc31dc645cc8929431",
+  "sha256": "d59784f23388784af31c26b252c7f1d3a795c5ec9d82b8f5f29ff986af7ee461",
+  "license": "MIT",
+  "publisher": "mindmakr",
+  "permissions": {
+    "network": [],
+    "plugins": [],
+    "pii": [],
+    "device": []
+  }
+}
