@@ -1,0 +1,27 @@
+{
+    "name":  "webrtc",
+    "kind":  "device-plugin",
+    "version":  "1.0.0",
+    "trust":  "official",
+    "source":  "https://github.com/mindmakr/tj-plugins",
+    "entry":  "packages/webrtc/plugin.tj",
+    "commit":  "644802a66bad9ac402de2c543d6c5edb63e78d4b",
+    "sha256":  "33cb54e660055e8e0ce9da3e052dfdea828b5f3b6652835f4e3a4ce8393b84c9",
+    "license":  "MIT",
+    "publisher":  "mindmakr",
+    "permissions":  {
+                        "network":  [
+
+                                    ],
+                        "plugins":  [
+
+                                    ],
+                        "pii":  [
+
+                                ],
+                        "device":  [
+                                       "camera",
+                                       "microphone"
+                                   ]
+                    }
+}

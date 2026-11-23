@@ -230,6 +230,30 @@
 
                                                         ]
                                          }
+                     },
+                     {
+                         "name":  "webrtc",
+                         "kind":  "device-plugin",
+                         "version":  "1.0.0",
+                         "trust":  "official",
+                         "license":  "MIT",
+                         "publisher":  "mindmakr",
+                         "summary":  "Opt-in WebRTC voice/video call helpers and camera+microphone permissions for \u003cNative name=VideoCall\u003e",
+                         "permissions":  {
+                                             "network":  [
+
+                                                         ],
+                                             "plugins":  [
+
+                                                         ],
+                                             "pii":  [
+
+                                                     ],
+                                             "device":  [
+                                                            "camera",
+                                                            "microphone"
+                                                        ]
+                                         }
                      }
                  ]
 }
