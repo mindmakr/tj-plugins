@@ -1,0 +1,30 @@
+{
+  "name": "pdpl-sa-sample",
+  "title": "Saudi Arabia PDPL (sample pack)",
+  "reviewedBy": null,
+  "effective": "2023-09-14",
+  "special": ["health", "genetic", "biometric", "ethnicity", "religion", "politics", "financial", "location"],
+  "controls": [
+    { "check": "lawful-basis", "source": "PDPL arts. 5-6 and 10" },
+    { "check": "special-basis", "source": "PDPL art. 1(8) and Implementing Regs. art. 25" },
+    { "check": "retention", "source": "PDPL art. 18" },
+    { "check": "subject-rights", "source": "PDPL art. 4(1)-(4)" },
+    { "check": "records", "source": "PDPL art. 31" },
+    { "check": "audit-log", "source": "PDPL arts. 19 and 31" },
+    { "check": "encryption-at-rest", "source": "PDPL art. 19" },
+    { "check": "encryption-in-transit", "source": "PDPL art. 19" },
+    { "check": "transfers", "source": "PDPL art. 29 (cross-border transfers)" },
+    { "check": "consent", "source": "PDPL arts. 5 and 25" },
+    { "person": "Provide a clear Arabic/English privacy notice stating purpose, lawful basis, retention and contact details before collecting personal data", "source": "PDPL arts. 12-13" },
+    { "person": "Execute data processing agreements with processors and verify cross-border transfer adequacy or SDAIA exemptions", "source": "PDPL art. 29" },
+    { "person": "Notify SDAIA within 72 hours of a personal data breach and notify affected individuals where serious harm is likely", "source": "PDPL art. 20" },
+    { "person": "Conduct a data protection impact assessment (DPIA) for high-risk or sensitive data processing", "source": "PDPL art. 22" },
+    { "person": "Appoint a Data Protection Officer (DPO) and register on the SDAIA National Data Governance Platform where required", "source": "PDPL arts. 30 and 32" }
+  ],
+  "notCovered": [
+    "credit data and financial-sector SAMA rules (PDPL art. 24)",
+    "direct marketing opt-out workflows where not modelled in app consent (PDPL art. 25)",
+    "criminal record processing restrictions",
+    "official SDAIA adequacy list verification for cross-border destinations"
+  ]
+}

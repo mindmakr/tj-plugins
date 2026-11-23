@@ -1,0 +1,112 @@
+// Common input validation helpers (zero regex, deterministic across every host).
+
+function isDigit(ch: string): boolean {
+  return ch >= "0" && ch <= "9"
+}
+
+function isHex(ch: string): boolean {
+  return (ch >= "0" && ch <= "9") || (ch >= "a" && ch <= "f") || (ch >= "A" && ch <= "F")
+}
+
+function isUpper(ch: string): boolean {
+  return ch >= "A" && ch <= "Z"
+}
+
+export function isEmail(value: string): boolean {
+  const s = value.trim()
+  if (s.length < 5 || s.length > 254 || s.includes(" ")) {
+    return false
+  }
+  const parts = s.split("@")
+  if (parts.length !== 2) {
+    return false
+  }
+  const local = parts[0]
+  const domain = parts[1]
+  if (local.length === 0 || local.length > 64 || domain.length < 3) {
+    return false
+  }
+  if (domain.startsWith(".") || domain.endsWith(".") || domain.includes("..") || !domain.includes(".")) {
+    return false
+  }
+  const labels = domain.split(".")
+  const tld = labels[labels.length - 1]
+  return tld.length >= 2
+}
+
+export function isPhone(value: string): boolean {
+  const s = value.trim()
+  if (s.length === 0 || s.length > 24) {
+    return false
+  }
+  let digits = 0
+  for (let i = 0; i < s.length; i++) {
+    const ch = s.slice(i, i + 1)
+    if (isDigit(ch)) {
+      digits = digits + 1
+    } else if (ch === "+" && i === 0) {
+      // leading country-code plus
+    } else if (ch === " " || ch === "-" || ch === "(" || ch === ")") {
+      // formatting punctuation
+    } else {
+      return false
+    }
+  }
+  return digits >= 7 && digits <= 15
+}
+
+export function isUuid(value: string): boolean {
+  const s = value.trim()
+  if (s.length !== 36) {
+    return false
+  }
+  for (let i = 0; i < 36; i++) {
+    const ch = s.slice(i, i + 1)
+    if (i === 8 || i === 13 || i === 18 || i === 23) {
+      if (ch !== "-") {
+        return false
+      }
+    } else if (!isHex(ch)) {
+      return false
+    }
+  }
+  return true
+}
+
+export function isHttpsUrl(value: string): boolean {
+  const s = value.trim()
+  if (!s.startsWith("https://") || s.includes(" ") || s.length < 12) {
+    return false
+  }
+  const rest = s.slice(8)
+  const host = rest.split("/")[0]
+  return host.length >= 3 && host.includes(".") && !host.startsWith(".") && !host.endsWith(".")
+}
+
+// Structural IBAN check with ISO 7064 mod-97-10 checksum.
+export function isIban(value: string): boolean {
+  const clean = value.split(" ").join("").split("-").join("").toUpperCase()
+  if (clean.length < 15 || clean.length > 34) {
+    return false
+  }
+  if (!isUpper(clean.slice(0, 1)) || !isUpper(clean.slice(1, 2))) {
+    return false
+  }
+  if (!isDigit(clean.slice(2, 3)) || !isDigit(clean.slice(3, 4))) {
+    return false
+  }
+  const rearranged = `${clean.slice(4)}${clean.slice(0, 4)}`
+  let rem = 0
+  for (let i = 0; i < rearranged.length; i++) {
+    const ch = rearranged.slice(i, i + 1)
+    if (isDigit(ch)) {
+      rem = (rem * 10 + Number(ch)) % 97
+    } else if (isUpper(ch)) {
+      const code = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(ch) + 10
+      rem = (rem * 100 + code) % 97
+    } else {
+      return false
+    }
+  }
+  return rem === 1
+}

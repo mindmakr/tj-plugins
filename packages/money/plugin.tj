@@ -2,8 +2,10 @@
 // Example: 12.50 USD with decimals=2 is stored as 1250 minor units (cents).
 
 function pow10(decimals: number): number {
+  const d = Math.floor(decimals)
+  check(d >= 0 && d <= 15 && d === decimals, "decimals", "decimals must be an integer between 0 and 15")
   let n = 1
-  for (let i = 0; i < decimals; i++) {
+  for (let i = 0; i < d; i++) {
     n = n * 10
   }
   return n
@@ -51,16 +53,18 @@ export function splitMinor(minor: number, parts: number): number[] {
 
 // Format minor units as e.g. "$12.50" or "-$0.05".
 export function formatMinor(minor: number, symbol: string, decimals: number): string {
+  const d = Math.floor(decimals)
+  check(d >= 0 && d <= 15 && d === decimals, "decimals", "decimals must be an integer between 0 and 15")
   const total = Math.round(minor)
   const neg = total < 0
   const abs = Math.abs(total)
-  if (decimals <= 0) {
+  if (d === 0) {
     return neg ? `-${symbol}${abs}` : `${symbol}${abs}`
   }
-  const scale = pow10(decimals)
+  const scale = pow10(d)
   const whole = Math.floor(abs / scale)
   let frac = `${abs - whole * scale}`
-  while (frac.length < decimals) {
+  while (frac.length < d) {
     frac = `0${frac}`
   }
   return neg ? `-${symbol}${whole}.${frac}` : `${symbol}${whole}.${frac}`

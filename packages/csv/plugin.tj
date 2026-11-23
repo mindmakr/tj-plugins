@@ -1,0 +1,83 @@
+// RFC 4180 CSV parser and serializer.
+
+export function parseCsv(input: string): string[][] {
+  const rows: string[][] = []
+  let row: string[] = []
+  let field = ""
+  let inQuotes = false
+  let i = 0
+  const len = input.length
+
+  while (i < len) {
+    const ch = input.slice(i, i + 1)
+    if (inQuotes) {
+      if (ch === "\"") {
+        if (i + 1 < len && input.slice(i + 1, i + 2) === "\"") {
+          field = `${field}\"`
+          i = i + 2
+        } else {
+          inQuotes = false
+          i = i + 1
+        }
+      } else {
+        field = `${field}${ch}`
+        i = i + 1
+      }
+    } else if (ch === "\"" && field.length === 0) {
+      inQuotes = true
+      i = i + 1
+    } else if (ch === ",") {
+      row.push(field)
+      field = ""
+      i = i + 1
+    } else if (ch === "\r") {
+      row.push(field)
+      rows.push(row)
+      row = []
+      field = ""
+      if (i + 1 < len && input.slice(i + 1, i + 2) === "\n") {
+        i = i + 2
+      } else {
+        i = i + 1
+      }
+    } else if (ch === "\n") {
+      row.push(field)
+      rows.push(row)
+      row = []
+      field = ""
+      i = i + 1
+    } else {
+      field = `${field}${ch}`
+      i = i + 1
+    }
+  }
+  if (field.length > 0 || row.length > 0) {
+    row.push(field)
+    rows.push(row)
+  }
+  return rows
+}
+
+function escapeField(value: string): string {
+  const needsQuote =
+    value.includes(",") ||
+    value.includes("\"") ||
+    value.includes("\n") ||
+    value.includes("\r")
+  if (!needsQuote) {
+    return value
+  }
+  return `"${value.split("\"").join("\"\"")}"`
+}
+
+export function toCsv(rows: string[][]): string {
+  const lines: string[] = []
+  for (const row of rows) {
+    const cells: string[] = []
+    for (const cell of row) {
+      cells.push(escapeField(cell))
+    }
+    lines.push(cells.join(","))
+  }
+  return lines.join("\n")
+}
