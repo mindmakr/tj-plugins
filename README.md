@@ -2,6 +2,8 @@
 
 The official package, plugin, bridge and compliance-pack registry for [tinyjump](https://github.com/mindmakr/tinyjump).
 
+**[Browse & search the registry](https://mindmakr.github.io/tj-plugins/)** · `tj search` · `tj info <name>` · `tj add <name>`
+
 Every package in `index/` is pinned to an exact 40-character git commit SHA and a SHA-256 content hash, and declares the permissions it uses (`network`, `plugins`, `pii`, `device`). `tj add` verifies both before installing into `.tj-packages/` and recording the pin in `tj.lock`.
 
 ## Installing packages

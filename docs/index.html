@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>tinyjump registry · tj-plugins</title>
+  <meta name="description" content="Searchable package, plugin, bridge, and compliance-pack registry for tinyjump. Every package is commit and SHA-256 pinned with statically audited permissions.">
+  <style>
+    :root {
+      --bg: #f6f4ef; --fg: #16150f; --muted: #5f5b50; --line: #dcd7cb; --card: #fffdf8;
+      --accent: #c2410c; --code-bg: #1d1b16; --code-fg: #ece6d8; --ok: #166534; --warn: #9a3412;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #12110d; --fg: #ece6d8; --muted: #a39d8d; --line: #2c2a23; --card: #1a1914; --accent: #ff7a3d; --code-bg: #0b0a08; --ok: #4ade80; --warn: #fb923c; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 ui-serif, Georgia, "Times New Roman", serif; }
+    a { color: inherit; text-decoration-color: var(--accent); text-underline-offset: 3px; }
+    code { font: 0.86em ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+    header { display: flex; justify-content: space-between; align-items: baseline; padding: 26px 0; border-bottom: 1px solid var(--line); gap: 12px; flex-wrap: wrap; }
+    .brand { font: 600 18px/1 ui-monospace, "SF Mono", Menlo, Consolas, monospace; letter-spacing: -0.02em; text-decoration: none; }
+    .brand span { color: var(--accent); }
+    nav a { margin-left: 18px; font: 14px ui-monospace, Menlo, Consolas, monospace; text-decoration: none; color: var(--muted); }
+    nav a:hover { color: var(--fg); }
+    .hero { padding: 40px 0 24px; }
+    h1 { font-size: clamp(30px, 4vw, 44px); line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 12px; font-weight: 600; }
+    .lede { font-size: 18px; color: var(--muted); max-width: 48em; margin: 0 0 22px; }
+    .controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+    input[type="search"] {
+      flex: 1 1 260px; padding: 10px 14px; font: 15px ui-monospace, Menlo, Consolas, monospace;
+      background: var(--card); color: var(--fg); border: 1px solid var(--line); border-radius: 3px;
+    }
+    .pills { display: flex; gap: 8px; flex-wrap: wrap; }
+    .pill {
+      padding: 7px 12px; border: 1px solid var(--line); background: var(--card); color: var(--muted);
+      font: 13px ui-monospace, Menlo, Consolas, monospace; cursor: pointer; border-radius: 3px;
+    }
+    .pill.active { border-color: var(--fg); background: var(--fg); color: var(--bg); }
+    .meta-bar { font: 13px ui-monospace, Menlo, Consolas, monospace; color: var(--muted); margin: 8px 0 20px; }
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .card { background: var(--card); border: 1px solid var(--line); padding: 18px 20px; border-radius: 3px; display: flex; flex-direction: column; gap: 10px; }
+    .card-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+    .pkg-name { font: 600 18px ui-monospace, Menlo, Consolas, monospace; }
+    .pkg-ver { font: 13px ui-monospace, Menlo, Consolas, monospace; color: var(--muted); margin-left: 8px; }
+    .badges { display: flex; gap: 6px; flex-wrap: wrap; }
+    .badge { font: 12px ui-monospace, Menlo, Consolas, monospace; padding: 2px 8px; border: 1px solid var(--line); border-radius: 2px; color: var(--muted); }
+    .badge.official { border-color: var(--ok); color: var(--ok); }
+    .badge.verified { border-color: var(--accent); color: var(--accent); }
+    .badge.flagged { border-color: var(--warn); color: var(--warn); }
+    .summary { margin: 0; font-size: 15.5px; color: var(--fg); }
+    .perms { font: 12.5px ui-monospace, Menlo, Consolas, monospace; color: var(--muted); }
+    .cmd-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; background: var(--code-bg); color: var(--code-fg); padding: 8px 12px; border-radius: 3px; font: 13px ui-monospace, Menlo, Consolas, monospace; }
+    .copy-btn { background: transparent; border: 1px solid #555; color: var(--code-fg); font: 12px ui-monospace, Menlo, Consolas, monospace; padding: 3px 8px; cursor: pointer; border-radius: 2px; }
+    .copy-btn:hover { border-color: var(--accent); }
+    .links { font: 13px ui-monospace, Menlo, Consolas, monospace; color: var(--muted); display: flex; gap: 14px; flex-wrap: wrap; }
+    footer { margin-top: 56px; padding: 24px 0 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } nav a { margin-left: 0; margin-right: 14px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="https://mindmakr.github.io/tinyjump/">tiny<span>jump</span> / registry</a>
+      <nav>
+        <a href="https://mindmakr.github.io/tinyjump/">site</a>
+        <a href="https://github.com/mindmakr/tj-plugins">github</a>
+        <a href="https://github.com/mindmakr/tj-plugins/issues/new/choose">request a package</a>
+        <a href="https://github.com/mindmakr/tinyjump/blob/main/docs/registry.md">spec</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h1>Small, typed, audited packages.</h1>
+      <p class="lede">Every package in <code>mindmakr/tj-plugins</code> is pinned to an exact 40-character git commit SHA and SHA-256 hash, statically checked against its declared permissions, and installs with zero bytes added to <code>tj-core</code>.</p>
+      <div class="controls">
+        <input id="q" type="search" placeholder="Search packages, kinds, publishers..." aria-label="Search packages">
+        <div class="pills" id="kinds" role="group" aria-label="Filter by kind"></div>
+      </div>
+      <div class="meta-bar" id="status">Loading catalog...</div>
+    </section>
+
+    <main class="grid" id="list"></main>
+
+    <footer>
+      <span>CLI: <code>tj search</code> · <code>tj info &lt;name&gt;</code> · <code>tj add &lt;name&gt;</code> · <code>tj bridge openapi spec.json</code></span>
+      <span>MIT or Apache-2.0 · <a href="https://github.com/mindmakr/tj-plugins">mindmakr/tj-plugins</a></span>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var CATALOG_URL = "https://raw.githubusercontent.com/mindmakr/tj-plugins/main/catalog.json";
+      var REPO_URL = "https://github.com/mindmakr/tj-plugins";
+      var KINDS = ["all", "library", "compliance-pack", "bridge", "plugin", "port"];
+      var activeKind = "all";
+      var packages = [];
+
+      var qInput = document.getElementById("q");
+      var kindsEl = document.getElementById("kinds");
+      var listEl = document.getElementById("list");
+      var statusEl = document.getElementById("status");
+
+      function el(tag, cls, text) {
+        var n = document.createElement(tag);
+        if (cls) n.className = cls;
+        if (text !== undefined) n.textContent = text;
+        return n;
+      }
+
+      function renderKindPills() {
+        while (kindsEl.firstChild) kindsEl.removeChild(kindsEl.firstChild);
+        KINDS.forEach(function (k) {
+          var b = el("button", "pill" + (activeKind === k ? " active" : ""), k);
+          b.type = "button";
+          b.addEventListener("click", function () {
+            activeKind = k;
+            renderKindPills();
+            render();
+          });
+          kindsEl.appendChild(b);
+        });
+      }
+
+      function permSummary(p) {
+        if (!p) return "permissions: none";
+        var parts = [];
+        ["network", "plugins", "pii", "device"].forEach(function (k) {
+          if (Array.isArray(p[k]) && p[k].length > 0) {
+            parts.push(k + ": " + p[k].join(", "));
+          }
+        });
+        return parts.length ? "permissions: " + parts.join(" · ") : "permissions: none (pure / offline)";
+      }
+
+      function render() {
+        var q = (qInput.value || "").trim().toLowerCase();
+        var filtered = packages.filter(function (pkg) {
+          if (activeKind !== "all" && pkg.kind !== activeKind) return false;
+          if (!q) return true;
+          var hay = [pkg.name, pkg.kind, pkg.trust, pkg.publisher, pkg.summary].join(" ").toLowerCase();
+          return hay.indexOf(q) !== -1;
+        });
+
+        statusEl.textContent = filtered.length + " of " + packages.length + " packages · install with `tj add <name>`";
+        while (listEl.firstChild) listEl.removeChild(listEl.firstChild);
+
+        if (filtered.length === 0) {
+          listEl.appendChild(el("p", "summary", "No packages match your filter. Open a request issue to propose one."));
+          return;
+        }
+
+        filtered.forEach(function (pkg) {
+          var card = el("article", "card");
+
+          var top = el("div", "card-top");
+          var titleWrap = el("div");
+          titleWrap.appendChild(el("span", "pkg-name", "tj:" + pkg.name));
+          titleWrap.appendChild(el("span", "pkg-ver", "v" + pkg.version));
+          top.appendChild(titleWrap);
+
+          var badges = el("div", "badges");
+          var trust = String(pkg.trust || "community").toLowerCase();
+          badges.appendChild(el("span", "badge " + trust, trust));
+          badges.appendChild(el("span", "badge", pkg.kind));
+          if (pkg.flagged) badges.appendChild(el("span", "badge flagged", "flagged"));
+          top.appendChild(badges);
+          card.appendChild(top);
+
+          card.appendChild(el("p", "summary", pkg.summary || "No summary provided."));
+          card.appendChild(el("div", "perms", permSummary(pkg.permissions)));
+
+          var cmd = "tj add " + pkg.name;
+          var cmdRow = el("div", "cmd-row");
+          cmdRow.appendChild(el("code", "", cmd));
+          var btn = el("button", "copy-btn", "copy");
+          btn.type = "button";
+          btn.addEventListener("click", function () {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(cmd).then(function () {
+                btn.textContent = "copied";
+                setTimeout(function () { btn.textContent = "copy"; }, 1200);
+              });
+            }
+          });
+          cmdRow.appendChild(btn);
+          card.appendChild(cmdRow);
+
+          var links = el("div", "links");
+          var mfLink = el("a", "", "manifest");
+          mfLink.href = REPO_URL + "/blob/main/index/" + encodeURIComponent(pkg.name) + ".json";
+          links.appendChild(mfLink);
+          links.appendChild(el("span", "", (pkg.license || "MIT") + " · " + (pkg.publisher || "community")));
+          card.appendChild(links);
+
+          listEl.appendChild(card);
+        });
+      }
+
+      renderKindPills();
+      qInput.addEventListener("input", render);
+
+      fetch(CATALOG_URL)
+        .then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          return r.json();
+        })
+        .then(function (data) {
+          packages = Array.isArray(data.packages) ? data.packages : [];
+          render();
+        })
+        .catch(function (err) {
+          statusEl.textContent = "Could not load catalog.json: " + err.message;
+        });
+    })();
+  </script>
+</body>
+</html>
