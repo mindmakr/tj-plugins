@@ -1,0 +1,49 @@
+// tj:webrtc — typed helpers and signaling shapes for <Native name="VideoCall" />.
+// Zero bytes in tj-core; installs camera + microphone device permissions into tj.lock
+// so `tj build` automatically wires WebRTC on Web and mobile permissions on Android/iOS.
+
+/// One WebRTC signaling message stored on a @server CallRoom object.
+export type Signal = {
+  seq: number,
+  from: string,
+  to: string,
+  kind: "offer" | "answer" | "ice" | "bye",
+  payload: string,
+}
+
+/// Outbound signal emitted by `<Native name="VideoCall" onSignal={...} />`.
+export type OutboundSignal = {
+  to: string,
+  kind: "offer" | "answer" | "ice" | "bye",
+  payload: string,
+}
+
+/// STUN or TURN server configuration passed via the `iceServers` prop.
+export type IceServer = {
+  urls: string,
+  username?: string,
+  credential?: string,
+}
+
+/// Lifecycle state emitted by `<Native name="VideoCall" onState={...} />`.
+export type CallState = "idle" | "acquiring" | "connecting" | "connected" | "disconnected" | "failed" | "closed"
+
+/// Builds a STUN/TURN IceServer entry for the `iceServers` prop.
+export function iceServer(urls: string): IceServer {
+  return { urls }
+}
+
+/// Builds an authenticated TURN IceServer entry.
+export function turnServer(urls: string, username: string, credential: string): IceServer {
+  return { urls, username, credential }
+}
+
+/// Deterministic glare-free initiator check: returns true if `me` is the first peer in a 2-peer room.
+export function isInitiator(peers: string[], me: string): boolean {
+  return peers.length >= 2 && peers[0] === me
+}
+
+/// Returns the other participant in a 1:1 room, or "" while waiting.
+export function remotePeer(peers: string[], me: string): string {
+  return peers.find((p) => p !== me) || ""
+}
