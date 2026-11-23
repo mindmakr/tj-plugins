@@ -1,0 +1,29 @@
+name: Request a bridge or plugin
+description: Request an MCP plugin, API/webhook bridge, or native device plugin
+title: "[bridge] "
+labels: ["request", "bridge"]
+body:
+  - type: input
+    id: service
+    attributes:
+      label: Service, API or native capability
+      placeholder: Stripe webhooks / PostgreSQL MCP / Camera native view
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Package kind
+      options:
+        - bridge
+        - plugin
+        - device-plugin
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Operations & permissions needed
+      description: List the API endpoints, webhook events, or platform capabilities required.
+    validations:
+      required: true

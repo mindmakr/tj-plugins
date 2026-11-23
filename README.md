@@ -1,0 +1,87 @@
+# tj-plugins
+
+The official package, plugin, bridge and compliance-pack registry for [tinyjump](https://github.com/mindmakr/tinyjump).
+
+Every package in `index/` is pinned to an exact 40-character git commit SHA and a SHA-256 content hash, and declares the permissions it uses (`network`, `plugins`, `pii`, `device`). `tj add` verifies both before installing into `.tj-packages/` and recording the pin in `tj.lock`.
+
+## Installing packages
+
+```sh
+# Install a library and pin it in tj.lock
+tj add money
+
+# Require Verified or Official packages only
+tj add money --min-trust verified
+
+# Install a compliance pack (stored at .tj-packages/<name>/pack.json)
+tj add gdpr-eu
+tj check app.tj --compliance .tj-packages/gdpr-eu/pack.json
+```
+
+In your app:
+
+```ts
+import { toMinor, splitMinor, formatMinor } from "tj:money"
+```
+
+Run `tj check app.tj --min-trust verified` in CI to verify every locked package's SHA-256, declared permissions, advisory status and trust mark.
+
+## Available packages
+
+| Package | Kind | Trust | Summary |
+|---|---|---|---|
+| `money` | `library` | Official | Integer minor-unit currency arithmetic (`toMinor`, `fromMinor`, `splitMinor`, `formatMinor`) |
+| `gdpr-eu` | `compliance-pack` | Official | Sample EU GDPR compliance pack for `tj check --compliance` and `tj serve --compliance` |
+
+Built-in modules (`tj:ai`, `tj:agent`, `tj:ui`, `tj:privacy`, `tj:consent`) ship directly inside `tj-core` and cannot be shadowed in this index.
+
+## Trust marks
+
+- **Community** — passed automated manifest, license, typosquat, compilation and permission checks.
+- **Verified** — checked by a reviewer; publisher identity verified; test suite passes cleanly.
+- **Official** — maintained by `mindmakr` (`tinyjump` core team).
+
+## Submitting a package
+
+1. Host your `.tj` module or compliance-pack `.json` in a public HTTPS git repository under an OSI-approved license (`MIT`, `Apache-2.0`, `BSD-2-Clause`, `BSD-3-Clause`, `ISC`, `MPL-2.0`, `Unlicense`, `0BSD`, `CC0-1.0`, `Zlib`, `BSL-1.0`).
+2. Add `index/<name>.json` pinned to a full 40-character commit SHA and exact SHA-256 hash:
+
+```json
+{
+  "name": "example-pkg",
+  "kind": "library",
+  "version": "1.0.0",
+  "trust": "community",
+  "source": "https://github.com/you/tj-example-pkg",
+  "entry": "plugin.tj",
+  "commit": "<40-char lowercase git sha>",
+  "sha256": "<64-char lowercase sha256 of entry file>",
+  "license": "MIT",
+  "publisher": "your-github-handle",
+  "permissions": {
+    "network": [],
+    "plugins": [],
+    "pii": [],
+    "device": []
+  }
+}
+```
+
+Valid `kind` values: `library`, `plugin`, `port`, `bridge`, `device-plugin`, `compliance-pack`.
+For `"kind": "port"`, include `"port": { "of": "<upstream repo>", "tests": "<passing test summary>" }`.
+
+3. Validate locally before opening a PR:
+
+```sh
+tj registry check index/example-pkg.json --index index --source path/to/plugin.tj
+```
+
+4. Open a pull request to this repository. The review workflow validates every changed manifest against its pinned commit and SHA-256, compiles `.tj` modules, checks for typosquats and verifies that every `fetch()`, `plugin()` and `@pii(...)` call matches `permissions`.
+
+## Requesting a package
+
+Need a library, an agent port of an existing package, or an API/MCP bridge? Open an issue using the [request forms](requests/README.md).
+
+## License
+
+Dual-licensed under [MIT](LICENSE-MIT) or [Apache-2.0](LICENSE-APACHE). Keep [NOTICE](NOTICE) in copies and derivative works.

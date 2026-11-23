@@ -1,0 +1,18 @@
+{
+  "name": "gdpr-eu",
+  "kind": "compliance-pack",
+  "version": "1.0.0",
+  "trust": "official",
+  "source": "https://github.com/mindmakr/tinyjump",
+  "entry": "examples/members/gdpr-eu.sample.json",
+  "commit": "df28e9c3b719ce5f4b3b151bad3b0f8ed3a79d0b",
+  "sha256": "adc585e9085fea98b8bcd4983b3c181ecdf11f4b47623f37c7bb0442f64f39e8",
+  "license": "MIT",
+  "publisher": "mindmakr",
+  "permissions": {
+    "network": [],
+    "plugins": [],
+    "pii": [],
+    "device": []
+  }
+}

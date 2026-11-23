@@ -1,0 +1,33 @@
+name: Request a port
+description: Request an agent-built tinyjump port of an existing open-source library
+title: "[port] "
+labels: ["request", "port"]
+body:
+  - type: input
+    id: upstream
+    attributes:
+      label: Upstream library URL
+      placeholder: https://github.com/org/repo
+    validations:
+      required: true
+  - type: input
+    id: license
+    attributes:
+      label: Upstream license (SPDX)
+      placeholder: MIT
+    validations:
+      required: true
+  - type: input
+    id: tests
+    attributes:
+      label: Upstream test suite location
+      description: Link to the tests the port should be verified against.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope & size notes
+      description: Which subset of the API matters most for tinyjump apps?
+    validations:
+      required: true

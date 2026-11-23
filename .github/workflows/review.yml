@@ -1,0 +1,87 @@
+name: Registry check
+
+on:
+  pull_request:
+    paths:
+      - "index/**"
+      - "packages/**"
+      - ".github/workflows/review.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Build tj CLI from mindmakr/tinyjump
+        run: |
+          git clone --depth 1 https://github.com/mindmakr/tinyjump.git /tmp/tinyjump
+          cargo build --manifest-path /tmp/tinyjump/Cargo.toml --release -p tj-cli
+
+      - name: Validate every manifest in index/
+        run: |
+          python3 - <<'PY'
+          import json, os, pathlib, subprocess, sys, tempfile, urllib.request
+
+          tj = "/tmp/tinyjump/target/release/tj"
+          index_dir = pathlib.Path("index")
+          manifests = sorted(index_dir.glob("*.json"))
+          if not manifests:
+              print("No manifests found in index/")
+              sys.exit(0)
+
+          failed = False
+          for mf in manifests:
+              data = json.loads(mf.read_text("utf-8"))
+              stem = mf.stem
+              if data.get("name") != stem:
+                  print(f"FAIL {mf}: manifest name {data.get('name')!r} != filename stem {stem!r}")
+                  failed = True
+                  continue
+
+              # Resolve pinned source bytes: prefer explicit url, else GitHub raw URL at exact commit.
+              url = data.get("url")
+              if not url:
+                  src = data.get("source", "").rstrip("/")
+                  if src.endswith(".git"):
+                      src = src[:-4]
+                  prefix = "https://github.com/"
+                  if src.startswith(prefix):
+                      owner_repo = src[len(prefix):]
+                      url = f"https://raw.githubusercontent.com/{owner_repo}/{data['commit']}/{data.get('entry', 'plugin.tj')}"
+
+              # For packages hosted in this PR itself before merge, fall back to the local path if commit matches HEAD.
+              local_entry = pathlib.Path(data.get("entry", "plugin.tj"))
+              head_sha = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
+              with tempfile.NamedTemporaryFile(delete=False) as tmp:
+                  tmp_path = tmp.name
+                  if data.get("source", "").rstrip("/") == "https://github.com/mindmakr/tj-plugins" and data.get("commit") == head_sha and local_entry.is_file():
+                      tmp.write(local_entry.read_bytes())
+                  else:
+                      if not url or not url.startswith("https://"):
+                          print(f"FAIL {mf}: cannot derive HTTPS source URL")
+                          failed = True
+                          continue
+                      try:
+                          with urllib.request.urlopen(url, timeout=20) as resp:
+                              tmp.write(resp.read())
+                      except Exception as e:
+                          print(f"FAIL {mf}: could not fetch {url}: {e}")
+                          failed = True
+                          continue
+
+              res = subprocess.run([tj, "registry", "check", str(mf), "--index", str(index_dir), "--source", tmp_path])
+              os.unlink(tmp_path)
+              if res.returncode != 0:
+                  failed = True
+
+          if failed:
+              sys.exit(1)
+          PY

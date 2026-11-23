@@ -1,0 +1,67 @@
+// Integer minor-unit currency helpers (no floating-point drift).
+// Example: 12.50 USD with decimals=2 is stored as 1250 minor units (cents).
+
+function pow10(decimals: number): number {
+  let n = 1
+  for (let i = 0; i < decimals; i++) {
+    n = n * 10
+  }
+  return n
+}
+
+export function toMinor(major: number, decimals: number): number {
+  return Math.round(major * pow10(decimals))
+}
+
+export function fromMinor(minor: number, decimals: number): number {
+  return minor / pow10(decimals)
+}
+
+export function addMinor(a: number, b: number): number {
+  return Math.round(a) + Math.round(b)
+}
+
+export function subMinor(a: number, b: number): number {
+  return Math.round(a) - Math.round(b)
+}
+
+// Compute a basis-points percentage (100 bps = 1%, 1500 bps = 15%), rounded to nearest minor unit.
+export function percentMinor(minor: number, bps: number): number {
+  return Math.round((Math.round(minor) * bps) / 10000)
+}
+
+// Split an integer amount into `parts` shares whose sum equals `minor` exactly.
+export function splitMinor(minor: number, parts: number): number[] {
+  const count = Math.floor(parts)
+  if (count <= 0) {
+    return []
+  }
+  const total = Math.round(minor)
+  const sign = total < 0 ? -1 : 1
+  const abs = Math.abs(total)
+  const base = Math.floor(abs / count)
+  const rem = abs - base * count
+  const out: number[] = []
+  for (let i = 0; i < count; i++) {
+    const share = i < rem ? base + 1 : base
+    out.push(share * sign)
+  }
+  return out
+}
+
+// Format minor units as e.g. "$12.50" or "-$0.05".
+export function formatMinor(minor: number, symbol: string, decimals: number): string {
+  const total = Math.round(minor)
+  const neg = total < 0
+  const abs = Math.abs(total)
+  if (decimals <= 0) {
+    return neg ? `-${symbol}${abs}` : `${symbol}${abs}`
+  }
+  const scale = pow10(decimals)
+  const whole = Math.floor(abs / scale)
+  let frac = `${abs - whole * scale}`
+  while (frac.length < decimals) {
+    frac = `0${frac}`
+  }
+  return neg ? `-${symbol}${whole}.${frac}` : `${symbol}${whole}.${frac}`
+}

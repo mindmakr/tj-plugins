@@ -1,0 +1,31 @@
+name: Request a library
+description: Propose a pure-.tj library for the tinyjump registry
+title: "[library] "
+labels: ["request", "library"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Proposed package name
+      description: Lowercase letters, digits and single hyphens (e.g. `money`, `slugify`).
+      placeholder: slugify
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: What should it do?
+      description: Briefly describe the problem it solves and the key functions or types needed.
+    validations:
+      required: true
+  - type: textarea
+    id: api
+    attributes:
+      label: Example usage in .tj
+      render: typescript
+  - type: input
+    id: permissions
+    attributes:
+      label: Expected permissions
+      description: Usually `none` for pure libraries. Note any network hosts or `@pii` categories if needed.
+      placeholder: none
