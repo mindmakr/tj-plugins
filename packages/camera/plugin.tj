@@ -1,0 +1,23 @@
+// tj:camera — opt-in photo capture plugin (Web, Android, iOS).
+// Zero bytes in tj-core; tj build adds Android & iOS camera permissions automatically.
+
+/// Options for capturing a photo.
+export type CaptureOptions = {
+  facing?: "back" | "front",
+  maxDimension?: number,
+  quality?: number,
+}
+
+/// Result of `capture`. `cancelled` is true if the user dismissed the camera.
+export type CaptureResult = {
+  cancelled: boolean,
+  mime: string,
+  width: number,
+  height: number,
+  base64: string,
+}
+
+/// Requests camera permission if needed and captures a JPEG photo.
+export async function capture(options: CaptureOptions): Promise<CaptureResult> {
+  return await plugin("camera", "capture", options)
+}

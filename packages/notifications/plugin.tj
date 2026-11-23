@@ -1,0 +1,31 @@
+// tj:notifications — opt-in local notifications plugin (Web, Android, iOS).
+// Zero bytes in tj-core; tj build adds POST_NOTIFICATIONS on Android automatically.
+
+/// Result of requesting OS notification permission.
+export type PermissionResult = {
+  granted: boolean,
+  status: string,
+}
+
+/// Options for delivering a local notification.
+export type NotifyOptions = {
+  id?: string,
+  title: string,
+  body?: string,
+}
+
+/// Result of delivering a local notification.
+export type NotifyResult = {
+  delivered: boolean,
+  id: string,
+}
+
+/// Requests permission from the user to show local notifications.
+export async function requestPermission(): Promise<PermissionResult> {
+  return await plugin("notifications", "requestPermission", {})
+}
+
+/// Displays a local notification immediately. Requires granted notification permission.
+export async function notify(options: NotifyOptions): Promise<NotifyResult> {
+  return await plugin("notifications", "notify", options)
+}

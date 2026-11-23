@@ -1,0 +1,22 @@
+// tj:location — opt-in one-shot device geolocation plugin (Web, Android, iOS).
+// Zero bytes in tj-core; tj build adds Android & iOS location permissions automatically.
+
+/// Options for fetching the device's current coordinates.
+export type LocationOptions = {
+  highAccuracy?: boolean,
+  timeoutMs?: number,
+}
+
+/// One GPS/network coordinate reading.
+export type Position = {
+  lat: number,
+  lng: number,
+  accuracy: number,
+  altitude: number | null,
+  timestamp: number,
+}
+
+/// Requests location permission if needed and returns the current position.
+export async function currentPosition(options: LocationOptions): Promise<Position> {
+  return await plugin("location", "currentPosition", options)
+}

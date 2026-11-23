@@ -1,0 +1,50 @@
+// tj:files — opt-in device file picker & save plugin (Web, Android, iOS).
+// Zero bytes in tj-core; tj build wires the native host automatically when installed.
+
+/// Options for picking one or more files from the device.
+export type PickOptions = {
+  accept?: string,
+  multiple?: boolean,
+  readAs?: "text" | "base64",
+  maxBytes?: number,
+}
+
+/// One file returned by `pick`.
+export type PickedFile = {
+  name: string,
+  mime: string,
+  size: number,
+  text?: string,
+  base64?: string,
+}
+
+/// Result of `pick`. `cancelled` is true if the user dismissed the picker.
+export type PickResult = {
+  cancelled: boolean,
+  files: PickedFile[],
+}
+
+/// Options for saving/exporting a file to the device (provide either `text` or `base64`).
+export type SaveOptions = {
+  name: string,
+  mime?: string,
+  text?: string,
+  base64?: string,
+}
+
+/// Result of `save`.
+export type SaveResult = {
+  saved: boolean,
+  cancelled: boolean,
+  name: string,
+}
+
+/// Opens the native file picker (scoped SAF / UIDocumentPicker / browser file input).
+export async function pick(options: PickOptions): Promise<PickResult> {
+  return await plugin("files", "pick", options)
+}
+
+/// Saves or exports a file to the user's chosen location (or downloads on Web).
+export async function save(options: SaveOptions): Promise<SaveResult> {
+  return await plugin("files", "save", options)
+}
