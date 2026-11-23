@@ -1,0 +1,26 @@
+{
+    "name":  "notifications",
+    "kind":  "device-plugin",
+    "version":  "1.0.0",
+    "trust":  "official",
+    "source":  "https://github.com/mindmakr/tj-plugins",
+    "entry":  "packages/notifications/plugin.tj",
+    "commit":  "71f23cfa00c3b50303aa2ebb52ca61b46f99f424",
+    "sha256":  "70cbc6fc9f0da5465097e173fb6cb45dda40140d9e3bc304082ab79163deaabd",
+    "license":  "MIT",
+    "publisher":  "mindmakr",
+    "permissions":  {
+                        "network":  [
+
+                                    ],
+                        "plugins":  [
+                                        "notifications"
+                                    ],
+                        "pii":  [
+
+                                ],
+                        "device":  [
+                                       "notifications"
+                                   ]
+                    }
+}

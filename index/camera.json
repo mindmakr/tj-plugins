@@ -1,0 +1,26 @@
+{
+    "name":  "camera",
+    "kind":  "device-plugin",
+    "version":  "1.0.0",
+    "trust":  "official",
+    "source":  "https://github.com/mindmakr/tj-plugins",
+    "entry":  "packages/camera/plugin.tj",
+    "commit":  "71f23cfa00c3b50303aa2ebb52ca61b46f99f424",
+    "sha256":  "be149d5348acdf973c57d1dbd68ced271d00c40182cb5a429d7e568761c3c0d0",
+    "license":  "MIT",
+    "publisher":  "mindmakr",
+    "permissions":  {
+                        "network":  [
+
+                                    ],
+                        "plugins":  [
+                                        "camera"
+                                    ],
+                        "pii":  [
+
+                                ],
+                        "device":  [
+                                       "camera"
+                                   ]
+                    }
+}

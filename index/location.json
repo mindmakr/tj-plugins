@@ -1,0 +1,26 @@
+{
+    "name":  "location",
+    "kind":  "device-plugin",
+    "version":  "1.0.0",
+    "trust":  "official",
+    "source":  "https://github.com/mindmakr/tj-plugins",
+    "entry":  "packages/location/plugin.tj",
+    "commit":  "71f23cfa00c3b50303aa2ebb52ca61b46f99f424",
+    "sha256":  "9649e2aa35ca43e14e5ddec02e171fdfe0a543edd7ad91dd4e81280eaeef4fcf",
+    "license":  "MIT",
+    "publisher":  "mindmakr",
+    "permissions":  {
+                        "network":  [
+
+                                    ],
+                        "plugins":  [
+                                        "location"
+                                    ],
+                        "pii":  [
+
+                                ],
+                        "device":  [
+                                       "location"
+                                   ]
+                    }
+}
