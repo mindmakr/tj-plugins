@@ -43,6 +43,10 @@ Run `tj check app.tj --min-trust verified` in CI to verify every locked package'
 | `slug` | `library` | Official | Clean URL-safe ASCII slug helpers (`slugify`, `slugifyMax`) |
 | `csv` | `library` | Official | RFC 4180 CSV parser and serializer (`parseCsv`, `toCsv`) |
 | `validate` | `library` | Official | Deterministic validators (`isEmail`, `isPhone`, `isUuid`, `isHttpsUrl`, `isIban`) |
+| `camera` | `device-plugin` | Official | Opt-in JPEG photo capture (`capture`) across Web, Android, and iOS |
+| `files` | `device-plugin` | Official | Opt-in native file picker and save dialog (`pick`, `save`) across Web, Android, and iOS |
+| `location` | `device-plugin` | Official | Opt-in one-shot GPS/network geolocation (`currentPosition`) across Web, Android, and iOS |
+| `notifications` | `device-plugin` | Official | Opt-in local OS notifications (`requestPermission`, `notify`) across Web, Android, and iOS |
 | `gdpr-eu` | `compliance-pack` | Official | Sample EU GDPR compliance pack for `tj check --compliance` and `tj serve --compliance` |
 | `pdpl-sa` | `compliance-pack` | Official | Sample Saudi Arabia PDPL compliance pack for `tj check --compliance` and `tj serve --compliance` |
 
