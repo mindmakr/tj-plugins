@@ -5,8 +5,8 @@
   "trust": "official",
   "source": "https://github.com/mindmakr/tj-plugins",
   "entry": "packages/whiteboard/plugin.tj",
-  "commit": "be5870d6252cd417e1c819e73a6653f1534f85d1",
-  "sha256": "e8df98b1b7503f1953c51e3fd20ef6b3837fb31cb2918ff13e545748d46c9518",
+  "commit": "682b6211464d2ca266ec268bc61a30557769921a",
+  "sha256": "c5ec07007c41e92f31263a45d96a208c39108a3473243ad2760c29c30a2d4fa9",
   "license": "MIT",
   "publisher": "mindmakr",
   "permissions": {
