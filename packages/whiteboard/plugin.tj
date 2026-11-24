@@ -41,7 +41,7 @@ export function clampWidth(width: number): number {
 
 /// Builds a lexicographically sorted, room-scoped object key for `BoardStroke.all(room + ":")`.
 export function strokeKey(room: string, seq: number): string {
-  const cleanRoom = room.trim()
+  const cleanRoom = room.trim().replaceAll("/", "").replaceAll("*", "").slice(0, 120)
   const cleanSeq = Math.max(0, Math.floor(seq))
   return `${cleanRoom}:${String(cleanSeq).padStart(6, "0")}`
 }
