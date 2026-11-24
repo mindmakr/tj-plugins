@@ -1,0 +1,58 @@
+// tj:whiteboard — typed stroke shapes and topic-key helpers for `<Native name="Whiteboard" />`.
+// Zero bytes in `tj-core`; pairs with room-isolated prefix streams (`BoardStroke.all(room + ":")`).
+
+/// One persisted drawing stroke rendered by `<Native name="Whiteboard" strokes={...} />`.
+export type Stroke = {
+  id?: string,
+  author: string,
+  color: string,
+  width: number,
+  points: number[],
+}
+
+/// Outbound stroke emitted by `<Native name="Whiteboard" onStroke={...} />`.
+export type StrokeDraft = {
+  color: string,
+  width: number,
+  points: number[],
+}
+
+/// High-contrast WCAG-AA-friendly default palette colors.
+export const PALETTE: string[] = ["#111114", "#9a3412", "#0f766e", "#1d4ed8"]
+
+/// Checks that `color` is a `#rgb` or `#rrggbb` hex color literal.
+export function isHexColor(color: string): boolean {
+  const c = color.trim()
+  if ((c.length !== 4 && c.length !== 7) || !c.startsWith("#")) { return false }
+  const hex = "0123456789abcdefABCDEF"
+  for (let i = 1; i < c.length; i += 1) {
+    if (!hex.includes(c.charAt(i))) { return false }
+  }
+  return true
+}
+
+/// Clamps and rounds a pen width to the supported `1..24` range.
+export function clampWidth(width: number): number {
+  const w = Math.round(width)
+  if (w < 1) { return 1 }
+  if (w > 24) { return 24 }
+  return w
+}
+
+/// Builds a lexicographically sorted, room-scoped object key for `BoardStroke.all(room + ":")`.
+export function strokeKey(room: string, seq: number): string {
+  const cleanRoom = room.trim()
+  const cleanSeq = Math.max(0, Math.floor(seq))
+  return `${cleanRoom}:${String(cleanSeq).padStart(6, "0")}`
+}
+
+/// Checks that `points` holds 1-120 `(x, y)` pairs normalized within `0..1000`.
+export function validateStrokePoints(points: number[]): boolean {
+  if (points.length < 2 || points.length > 240 || points.length % 2 !== 0) {
+    return false
+  }
+  for (const coord of points) {
+    if (coord < 0 || coord > 1000) { return false }
+  }
+  return true
+}

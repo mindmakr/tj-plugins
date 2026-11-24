@@ -28,6 +28,12 @@ export type IceServer = {
 /// Lifecycle state emitted by `<Native name="VideoCall" onState={...} />`.
 export type CallState = "idle" | "acquiring" | "connecting" | "connected" | "disconnected" | "failed" | "closed"
 
+/// Room screen-share state synchronized alongside a `<Native name="VideoCall" screenShare={...} />`.
+export type ScreenShareState = {
+  sharing: boolean,
+  sharer: string,
+}
+
 /// Builds a STUN/TURN IceServer entry for the `iceServers` prop.
 export function iceServer(urls: string): IceServer {
   return { urls }
@@ -46,4 +52,17 @@ export function isInitiator(peers: string[], me: string): boolean {
 /// Returns the other participant in a 1:1 room, or "" while waiting.
 export function remotePeer(peers: string[], me: string): string {
   return peers.find((p) => p !== me) || ""
+}
+
+/// Returns true when the local participant is in an active call and eligible to share their screen.
+export function canShareScreen(active: boolean, peers: string[], me: string): boolean {
+  const id = me.trim()
+  return active && id !== "" && peers.includes(id)
+}
+
+/// Human-readable status summary for who is currently sharing their screen in a room.
+export function screenShareLabel(sharer: string, me: string): string {
+  const s = sharer.trim()
+  if (s === "") { return "No screen shared" }
+  return s === me.trim() ? "You are sharing your screen" : `${s} is sharing their screen`
 }
