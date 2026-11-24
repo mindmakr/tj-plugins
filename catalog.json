@@ -1,259 +1,185 @@
 {
-    "version":  1,
-    "packages":  [
-                     {
-                         "name":  "camera",
-                         "kind":  "device-plugin",
-                         "version":  "1.0.0",
-                         "trust":  "official",
-                         "license":  "MIT",
-                         "publisher":  "mindmakr",
-                         "summary":  "Opt-in JPEG photo capture (capture) across Web, Android, and iOS",
-                         "permissions":  {
-                                             "network":  [
-
-                                                         ],
-                                             "plugins":  [
-                                                             "camera"
-                                                         ],
-                                             "pii":  [
-
-                                                     ],
-                                             "device":  [
-                                                            "camera"
-                                                        ]
-                                         }
-                     },
-                     {
-                         "name":  "csv",
-                         "kind":  "library",
-                         "version":  "1.0.0",
-                         "trust":  "official",
-                         "license":  "MIT",
-                         "publisher":  "mindmakr",
-                         "summary":  "RFC 4180 CSV parser and serializer (parseCsv, toCsv)",
-                         "permissions":  {
-                                             "network":  [
-
-                                                         ],
-                                             "plugins":  [
-
-                                                         ],
-                                             "pii":  [
-
-                                                     ],
-                                             "device":  [
-
-                                                        ]
-                                         }
-                     },
-                     {
-                         "name":  "files",
-                         "kind":  "device-plugin",
-                         "version":  "1.0.0",
-                         "trust":  "official",
-                         "license":  "MIT",
-                         "publisher":  "mindmakr",
-                         "summary":  "Opt-in native file picker and save dialog (pick, save) across Web, Android, and iOS",
-                         "permissions":  {
-                                             "network":  [
-
-                                                         ],
-                                             "plugins":  [
-                                                             "files"
-                                                         ],
-                                             "pii":  [
-
-                                                     ],
-                                             "device":  [
-                                                            "files"
-                                                        ]
-                                         }
-                     },
-                     {
-                         "name":  "gdpr-eu",
-                         "kind":  "compliance-pack",
-                         "version":  "1.0.0",
-                         "trust":  "official",
-                         "license":  "MIT",
-                         "publisher":  "mindmakr",
-                         "summary":  "Sample EU GDPR compliance pack for tj check --compliance",
-                         "permissions":  {
-                                             "network":  [
-
-                                                         ],
-                                             "plugins":  [
-
-                                                         ],
-                                             "pii":  [
-
-                                                     ],
-                                             "device":  [
-
-                                                        ]
-                                         }
-                     },
-                     {
-                         "name":  "location",
-                         "kind":  "device-plugin",
-                         "version":  "1.0.0",
-                         "trust":  "official",
-                         "license":  "MIT",
-                         "publisher":  "mindmakr",
-                         "summary":  "Opt-in one-shot GPS/network geolocation (currentPosition) across Web, Android, and iOS",
-                         "permissions":  {
-                                             "network":  [
-
-                                                         ],
-                                             "plugins":  [
-                                                             "location"
-                                                         ],
-                                             "pii":  [
-
-                                                     ],
-                                             "device":  [
-                                                            "location"
-                                                        ]
-                                         }
-                     },
-                     {
-                         "name":  "money",
-                         "kind":  "library",
-                         "version":  "1.0.1",
-                         "trust":  "official",
-                         "license":  "MIT",
-                         "publisher":  "mindmakr",
-                         "summary":  "Integer minor-unit currency arithmetic (toMinor, fromMinor, splitMinor, formatMinor)",
-                         "permissions":  {
-                                             "network":  [
-
-                                                         ],
-                                             "plugins":  [
-
-                                                         ],
-                                             "pii":  [
-
-                                                     ],
-                                             "device":  [
-
-                                                        ]
-                                         }
-                     },
-                     {
-                         "name":  "notifications",
-                         "kind":  "device-plugin",
-                         "version":  "1.0.0",
-                         "trust":  "official",
-                         "license":  "MIT",
-                         "publisher":  "mindmakr",
-                         "summary":  "Opt-in local OS notifications (requestPermission, notify) across Web, Android, and iOS",
-                         "permissions":  {
-                                             "network":  [
-
-                                                         ],
-                                             "plugins":  [
-                                                             "notifications"
-                                                         ],
-                                             "pii":  [
-
-                                                     ],
-                                             "device":  [
-                                                            "notifications"
-                                                        ]
-                                         }
-                     },
-                     {
-                         "name":  "pdpl-sa",
-                         "kind":  "compliance-pack",
-                         "version":  "1.0.0",
-                         "trust":  "official",
-                         "license":  "MIT",
-                         "publisher":  "mindmakr",
-                         "summary":  "Sample Saudi Arabia PDPL compliance pack for tj check --compliance",
-                         "permissions":  {
-                                             "network":  [
-
-                                                         ],
-                                             "plugins":  [
-
-                                                         ],
-                                             "pii":  [
-
-                                                     ],
-                                             "device":  [
-
-                                                        ]
-                                         }
-                     },
-                     {
-                         "name":  "slug",
-                         "kind":  "library",
-                         "version":  "1.0.0",
-                         "trust":  "official",
-                         "license":  "MIT",
-                         "publisher":  "mindmakr",
-                         "summary":  "Clean URL-safe ASCII slug helpers (slugify, slugifyMax)",
-                         "permissions":  {
-                                             "network":  [
-
-                                                         ],
-                                             "plugins":  [
-
-                                                         ],
-                                             "pii":  [
-
-                                                     ],
-                                             "device":  [
-
-                                                        ]
-                                         }
-                     },
-                     {
-                         "name":  "validate",
-                         "kind":  "library",
-                         "version":  "1.0.0",
-                         "trust":  "official",
-                         "license":  "MIT",
-                         "publisher":  "mindmakr",
-                         "summary":  "Deterministic validators (isEmail, isPhone, isUuid, isHttpsUrl, isIban)",
-                         "permissions":  {
-                                             "network":  [
-
-                                                         ],
-                                             "plugins":  [
-
-                                                         ],
-                                             "pii":  [
-
-                                                     ],
-                                             "device":  [
-
-                                                        ]
-                                         }
-                     },
-                     {
-                         "name":  "webrtc",
-                         "kind":  "device-plugin",
-                         "version":  "1.0.0",
-                         "trust":  "official",
-                         "license":  "MIT",
-                         "publisher":  "mindmakr",
-                         "summary":  "Opt-in WebRTC voice/video call helpers and camera+microphone permissions for \u003cNative name=VideoCall\u003e",
-                         "permissions":  {
-                                             "network":  [
-
-                                                         ],
-                                             "plugins":  [
-
-                                                         ],
-                                             "pii":  [
-
-                                                     ],
-                                             "device":  [
-                                                            "camera",
-                                                            "microphone"
-                                                        ]
-                                         }
-                     }
-                 ]
+  "version": 1,
+  "packages": [
+    {
+      "name": "camera",
+      "kind": "device-plugin",
+      "version": "1.0.0",
+      "trust": "official",
+      "license": "MIT",
+      "publisher": "mindmakr",
+      "summary": "Opt-in JPEG photo capture (capture) across Web, Android, and iOS",
+      "permissions": {
+        "network": [],
+        "plugins": ["camera"],
+        "pii": [],
+        "device": ["camera"]
+      }
+    },
+    {
+      "name": "csv",
+      "kind": "library",
+      "version": "1.0.0",
+      "trust": "official",
+      "license": "MIT",
+      "publisher": "mindmakr",
+      "summary": "RFC 4180 CSV parser and serializer (parseCsv, toCsv)",
+      "permissions": {
+        "network": [],
+        "plugins": [],
+        "pii": [],
+        "device": []
+      }
+    },
+    {
+      "name": "files",
+      "kind": "device-plugin",
+      "version": "1.0.0",
+      "trust": "official",
+      "license": "MIT",
+      "publisher": "mindmakr",
+      "summary": "Opt-in native file picker and save dialog (pick, save) across Web, Android, and iOS",
+      "permissions": {
+        "network": [],
+        "plugins": ["files"],
+        "pii": [],
+        "device": ["files"]
+      }
+    },
+    {
+      "name": "gdpr-eu",
+      "kind": "compliance-pack",
+      "version": "1.0.0",
+      "trust": "official",
+      "license": "MIT",
+      "publisher": "mindmakr",
+      "summary": "Sample EU GDPR compliance pack for tj check --compliance",
+      "permissions": {
+        "network": [],
+        "plugins": [],
+        "pii": [],
+        "device": []
+      }
+    },
+    {
+      "name": "location",
+      "kind": "device-plugin",
+      "version": "1.0.0",
+      "trust": "official",
+      "license": "MIT",
+      "publisher": "mindmakr",
+      "summary": "Opt-in one-shot GPS/network geolocation (currentPosition) across Web, Android, and iOS",
+      "permissions": {
+        "network": [],
+        "plugins": ["location"],
+        "pii": [],
+        "device": ["location"]
+      }
+    },
+    {
+      "name": "money",
+      "kind": "library",
+      "version": "1.0.1",
+      "trust": "official",
+      "license": "MIT",
+      "publisher": "mindmakr",
+      "summary": "Integer minor-unit currency arithmetic (toMinor, fromMinor, splitMinor, formatMinor)",
+      "permissions": {
+        "network": [],
+        "plugins": [],
+        "pii": [],
+        "device": []
+      }
+    },
+    {
+      "name": "notifications",
+      "kind": "device-plugin",
+      "version": "1.0.0",
+      "trust": "official",
+      "license": "MIT",
+      "publisher": "mindmakr",
+      "summary": "Opt-in local OS notifications (requestPermission, notify) across Web, Android, and iOS",
+      "permissions": {
+        "network": [],
+        "plugins": ["notifications"],
+        "pii": [],
+        "device": ["notifications"]
+      }
+    },
+    {
+      "name": "pdpl-sa",
+      "kind": "compliance-pack",
+      "version": "1.0.0",
+      "trust": "official",
+      "license": "MIT",
+      "publisher": "mindmakr",
+      "summary": "Sample Saudi Arabia PDPL compliance pack for tj check --compliance",
+      "permissions": {
+        "network": [],
+        "plugins": [],
+        "pii": [],
+        "device": []
+      }
+    },
+    {
+      "name": "slug",
+      "kind": "library",
+      "version": "1.0.0",
+      "trust": "official",
+      "license": "MIT",
+      "publisher": "mindmakr",
+      "summary": "Clean URL-safe ASCII slug helpers (slugify, slugifyMax)",
+      "permissions": {
+        "network": [],
+        "plugins": [],
+        "pii": [],
+        "device": []
+      }
+    },
+    {
+      "name": "validate",
+      "kind": "library",
+      "version": "1.0.0",
+      "trust": "official",
+      "license": "MIT",
+      "publisher": "mindmakr",
+      "summary": "Deterministic validators (isEmail, isPhone, isUuid, isHttpsUrl, isIban)",
+      "permissions": {
+        "network": [],
+        "plugins": [],
+        "pii": [],
+        "device": []
+      }
+    },
+    {
+      "name": "webrtc",
+      "kind": "device-plugin",
+      "version": "1.1.0",
+      "trust": "official",
+      "license": "MIT",
+      "publisher": "mindmakr",
+      "summary": "Opt-in WebRTC voice/video + screen-share helpers and camera+microphone permissions for <Native name=VideoCall>",
+      "permissions": {
+        "network": [],
+        "plugins": [],
+        "pii": [],
+        "device": ["camera", "microphone"]
+      }
+    },
+    {
+      "name": "whiteboard",
+      "kind": "library",
+      "version": "1.0.0",
+      "trust": "official",
+      "license": "MIT",
+      "publisher": "mindmakr",
+      "summary": "Collaborative drawing board helpers (PALETTE, isHexColor, clampWidth, strokeKey, validateStrokePoints) for <Native name=Whiteboard>",
+      "permissions": {
+        "network": [],
+        "plugins": [],
+        "pii": [],
+        "device": []
+      }
+    }
+  ]
 }

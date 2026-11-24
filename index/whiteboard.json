@@ -1,0 +1,18 @@
+{
+  "name": "whiteboard",
+  "kind": "library",
+  "version": "1.0.0",
+  "trust": "official",
+  "source": "https://github.com/mindmakr/tj-plugins",
+  "entry": "packages/whiteboard/plugin.tj",
+  "commit": "be5870d6252cd417e1c819e73a6653f1534f85d1",
+  "sha256": "e8df98b1b7503f1953c51e3fd20ef6b3837fb31cb2918ff13e545748d46c9518",
+  "license": "MIT",
+  "publisher": "mindmakr",
+  "permissions": {
+    "network": [],
+    "plugins": [],
+    "pii": [],
+    "device": []
+  }
+}
